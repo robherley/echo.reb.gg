@@ -8,7 +8,15 @@ export default {
       path: url.pathname,
       query: Object.fromEntries(url.searchParams),
       headers: Object.fromEntries(
-        [...request.headers].filter(([k]) => !k.toLowerCase().startsWith("x-vercel-")),
+        [...request.headers].filter(([k]) => {
+          const header = k.toLowerCase();
+          return (
+            !header.startsWith("x-vercel-") ||
+            header === "x-vercel-id" ||
+            header.startsWith("x-vercel-ip-") ||
+            header === "x-vercel-owner-id"
+          );
+        }),
       ),
     };
 
