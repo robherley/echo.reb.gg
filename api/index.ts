@@ -1,3 +1,5 @@
+export const maxDuration = 1800;
+
 export default {
   async fetch(request: Request) {
     const url = new URL(request.url);
