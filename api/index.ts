@@ -34,8 +34,14 @@ export default {
       }
     }
 
-    return new Response(JSON.stringify(echo, null, 2), {
-      headers: { "Content-Type": "application/json" },
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      // @ts-ignore
+      "x-vercel-deployment-id": process.env.VERCEL_DEPLOYMENT_ID || "",
+      // @ts-ignore
+      "x-vercel-project-id": process.env.VERCEL_PROJECT_ID || "",
     });
+
+    return new Response(JSON.stringify(echo, null, 2), { headers });
   },
 };
